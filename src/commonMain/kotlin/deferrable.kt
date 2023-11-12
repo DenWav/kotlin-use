@@ -108,8 +108,10 @@ class Defer {
      *
      * This resource is guaranteed to be closed correctly, whether an exception is thrown or not.
      */
-    fun AutoCloseable.deferClose() = defer {
-        close()
+    fun <T : AutoCloseable> T.deferClose(): T = apply {
+        defer {
+            close()
+        }
     }
 
     /**
